@@ -102,26 +102,23 @@ if page == "🏠 Halaman Utama":
 # 🔍 HALAMAN SIMULASI
 # =========================
 elif page == "🔍 Simulasi Bahan Kimia":
-    st.header("🔍 Cari Bahan Kimia")
+    st.header("🔍 Pilih Bahan Kimia")
 
-    keyword = st.text_input("Masukkan nama bahan kimia (misal: asam klorida)").lower()
+    pilihan = st.selectbox("Pilih bahan kimia dari daftar", sorted(data_kimia.keys()))
 
-    if keyword:
-        if keyword in data_kimia:
-            info = data_kimia[keyword]
+    if pilihan:
+        info = data_kimia[pilihan]
 
-            st.subheader("💼 Piktogram Bahaya")
-            st.markdown(" ".join(info["piktogram"]))
+        st.subheader("💼 Piktogram Bahaya")
+        st.markdown(" ".join(info["piktogram"]))
 
-            st.subheader("⚠️ Risiko")
-            for r in info["risiko"]:
-                st.markdown(f"- {r}")
+        st.subheader("⚠️ Risiko")
+        for r in info["risiko"]:
+            st.markdown(f"- {r}")
 
-            st.subheader("🛠️ Cara Penanganan")
-            st.markdown(f"🔸 {info['penanganan']}")
+        st.subheader("🛠️ Cara Penanganan")
+        st.markdown(f"🔸 {info['penanganan']}")
 
-            st.subheader("🧤 Alat Pelindung Diri (APD)")
-            for a in info["apd"]:
-                st.markdown(f"- {a}")
-        else:
-            st.error("❌ Bahan kimia tidak ditemukan. Coba lagi dengan nama lain.")
+        st.subheader("🧤 Alat Pelindung Diri (APD)")
+        for a in info["apd"]:
+            st.markdown(f"- {a}")
