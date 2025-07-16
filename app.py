@@ -23,6 +23,14 @@ apd_list = [
     ["Masker uap organik", "Pelindung wajah"],
     ["Kacamata", "Jas lab", "Sarung tangan"]
 ]
+tingkat_risiko_list = ["Rendah", "Sedang", "Tinggi", "Sangat Tinggi"]
+pengendalian_spesifik_list = [
+    "Gunakan exhaust fan dan ventilasi silang.",
+    "Simpan dalam ruangan tahan api dengan label jelas.",
+    "Pisahkan dari bahan yang reaktif atau mudah terbakar.",
+    "Gunakan detektor gas untuk monitoring paparan.",
+    "Latih pekerja tentang prosedur tumpahan dan P3K."
+]
 
 # Nama-nama bahan kimia nyata (100 contoh)
 nama_kimia_asli = [
@@ -55,7 +63,9 @@ for nama in nama_kimia_asli:
         "piktogram": random.sample(piktogram_list, k=random.randint(1, 2)),
         "risiko": random.sample(risiko_list, k=random.randint(2, 4)),
         "penanganan": random.choice(penanganan_list),
-        "apd": random.choice(apd_list)
+        "apd": random.choice(apd_list),
+        "tingkat_risiko": random.choice(tingkat_risiko_list),
+        "pengendalian": random.choice(pengendalian_spesifik_list)
     }
 
 # Navigasi via sidebar
@@ -116,9 +126,15 @@ elif page == "🔍 Simulasi Bahan Kimia":
         for r in info["risiko"]:
             st.markdown(f"- {r}")
 
+        st.subheader("📊 Tingkat Risiko")
+        st.markdown(f"**{info['tingkat_risiko']}**")
+
         st.subheader("🛠️ Cara Penanganan")
         st.markdown(f"🔸 {info['penanganan']}")
 
         st.subheader("🧤 Alat Pelindung Diri (APD)")
         for a in info["apd"]:
             st.markdown(f"- {a}")
+
+        st.subheader("🧰 Pengendalian Spesifik")
+        st.markdown(f"✅ {info['pengendalian']}")
