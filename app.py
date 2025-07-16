@@ -1,59 +1,56 @@
 import streamlit as st
 
-# Judul Aplikasi
-st.set_page_config(page_title="Simulasi Bahaya Bahan Kimia", page_icon="🧯", layout="centered")
+# Konfigurasi halaman
+st.set_page_config(page_title="Simulasi Bahaya Bahan Kimia", page_icon="🧯")
+
 st.title("🧪 Simulasi Bahaya Bahan Kimia")
 st.markdown("Cocok untuk edukasi **K3 Laboratorium**. Pilih bahan kimia dan lihat informasi bahayanya!")
 
-# Data bahan kimia (Contoh sederhana)
+# Data bahan kimia
 bahan_kimia = {
     "Asam Sulfat (H₂SO₄)": {
-        "piktogram": ["corrosive.png", "exclamation.png"],
+        "piktogram": ["🧪 Korosif", "⚠️ Iritasi"],
         "risiko": ["Korosif", "Iritasi saluran pernapasan", "Bahaya kulit & mata"],
         "penanganan": "Gunakan APD lengkap. Tambahkan ke air, jangan sebaliknya. Hindari kontak langsung.",
-        "apd": ["Sarung tangan tahan asam", "Kacamata safety", "Jas lab", "Masker"]
+        "apd": ["🧤 Sarung tangan tahan asam", "🕶️ Kacamata safety", "🥼 Jas lab", "😷 Masker"]
     },
     "Amonia (NH₃)": {
-        "piktogram": ["gas.png", "exclamation.png"],
+        "piktogram": ["💨 Gas Tekan", "⚠️ Iritasi"],
         "risiko": ["Toksik jika terhirup", "Iritasi mata & kulit", "Korosif"],
         "penanganan": "Gunakan di ruang berventilasi. Hindari menghirup uap. Simpan dalam suhu rendah.",
-        "apd": ["Masker gas", "Kacamata safety", "Sarung tangan nitril"]
+        "apd": ["😷 Masker gas", "🕶️ Kacamata safety", "🧤 Sarung tangan nitril"]
     },
     "Aseton (C₃H₆O)": {
-        "piktogram": ["flammable.png", "exclamation.png"],
+        "piktogram": ["🔥 Mudah Terbakar", "⚠️ Iritasi"],
         "risiko": ["Mudah terbakar", "Iritasi mata", "Efek anestetik"],
         "penanganan": "Jauhkan dari sumber panas. Tutup rapat. Gunakan di ruang berventilasi.",
-        "apd": ["Masker uap organik", "Sarung tangan nitril", "Kacamata"]
+        "apd": ["😷 Masker uap organik", "🧤 Sarung tangan nitril", "🕶️ Kacamata"]
     },
 }
 
-# Pilih bahan kimia
+# Pilihan bahan kimia
 pilihan = st.selectbox("🔍 Pilih Bahan Kimia:", list(bahan_kimia.keys()))
-
 data = bahan_kimia[pilihan]
 
-# Tampilkan piktogram
+# Piktogram (Emoji Label)
 st.subheader("📛 Piktogram Bahaya (GHS)")
-cols = st.columns(len(data["piktogram"]))
-for i, gambar in enumerate(data["piktogram"]):
-    with cols[i]:
-        st.image(f"piktogram/{gambar}", width=100)
+for ikon in data["piktogram"]:
+    st.markdown(f"- {ikon}")
 
-# Tampilkan risiko
+# Risiko
 st.subheader("⚠️ Risiko")
 for risiko in data["risiko"]:
     st.markdown(f"- {risiko}")
 
-# Tampilkan cara penanganan
+# Penanganan
 st.subheader("🛠️ Cara Penanganan")
-st.markdown(data["penanganan"])
+st.markdown(f"🔸 {data['penanganan']}")
 
-# Tampilkan APD
+# APD
 st.subheader("🧤 Alat Pelindung Diri (APD)")
-for apd in data["apd"]:
-    st.markdown(f"- {apd}")
+for item in data["apd"]:
+    st.markdown(f"- {item}")
 
 # Footer
 st.markdown("---")
-st.markdown("🧯 *Aplikasi edukasi K3 laboratorium berbasis GHS oleh Streamlit.io*")
-
+st.markdown("🧯 *Aplikasi edukasi K3 laboratorium - Streamlit.io versi ringan tanpa gambar.*")
