@@ -1,49 +1,66 @@
 import streamlit as st
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Simulasi Bahaya Bahan Kimia", page_icon="🧯")
+st.set_page_config(page_title="Simulasi Bahaya Bahan Kimia", page_icon="🧯", layout="centered")
 
-# Dataset bahan kimia
+# Data kimia (minimal untuk simulasi, bisa ditambah nanti)
 data_kimia = {
     "asam sulfat": {"piktogram": ["🧪 Korosif"], "risiko": ["Korosif", "Iritasi"], "penanganan": "Tambahkan ke air, jangan sebaliknya.", "apd": ["Sarung tangan", "Kacamata", "Masker"]},
     "aseton": {"piktogram": ["🔥 Mudah Terbakar"], "risiko": ["Iritasi", "Anestetik"], "penanganan": "Jauhkan dari api.", "apd": ["Masker uap", "Sarung tangan"]},
-    "amonia": {"piktogram": ["💨 Gas", "⚠️ Iritasi"], "risiko": ["Toksik", "Korosif"], "penanganan": "Gunakan di tempat berventilasi.", "apd": ["Masker", "Sarung tangan"]},
-    "etanol": {"piktogram": ["🔥 Mudah Terbakar"], "risiko": ["Iritasi ringan", "Nyala tak terlihat"], "penanganan": "Tutup rapat wadah.", "apd": ["Sarung tangan", "Masker"]},
-    "formaldehida": {"piktogram": ["☠️ Toksik", "⚠️ Iritasi"], "risiko": ["Karsinogenik", "Iritasi mata"], "penanganan": "Gunakan lemari asam.", "apd": ["Masker", "Kacamata"]},
-    # tambahkan hingga 20+ bahan lainnya ...
+    # Tambahkan lebih banyak bahan di sini...
 }
 
-# Sidebar untuk navigasi
-page = st.sidebar.radio("Navigasi", ["🏠 Halaman Utama", "🔍 Simulasi Bahan Kimia"])
+# Navigasi via sidebar
+page = st.sidebar.radio("📚 Navigasi Aplikasi", ["🏠 Halaman Utama", "🔍 Simulasi Bahan Kimia"])
 
-# ========================
-# 🏠 HALAMAN 1: INTRO
-# ========================
+# =========================
+# 🏠 HALAMAN AWAL MODERN
+# =========================
 if page == "🏠 Halaman Utama":
     st.markdown("""
-        <h1 style='text-align: center; color: crimson;'>🧪 Simulasi Bahaya Bahan Kimia</h1>
-        <p style='text-align: center; font-size:18px;'>Aplikasi edukasi K3 untuk mengenal bahan kimia berbahaya di laboratorium.</p>
-        <hr>
+        <div style='text-align:center'>
+            <h1 style='color:#FF4B4B;'>🧯 Simulasi Bahaya Bahan Kimia</h1>
+            <p style='font-size:18px; color:gray;'>Kenali bahaya bahan kimia di laboratorium, lindungi diri & lingkungan 💡</p>
+        </div>
     """, unsafe_allow_html=True)
 
-    st.image("https://cdn-icons-png.flaticon.com/512/2913/2913461.png", width=200)
+    # Section 1: Highlight
+    st.markdown("### 🎯 Manfaat Aplikasi Ini")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.success("🔎 **Pencarian Bebas**\n\nCari bahan kimia dengan nama tanpa harus pilih.")
+    with col2:
+        st.info("🧪 **Tampilan Edukatif**\n\nTampilkan piktogram, risiko, penanganan, dan APD.")
+    with col3:
+        st.warning("👩‍🔬 **Edukasi K3**\n\nCocok untuk siswa, mahasiswa, dan teknisi laboratorium.")
 
+    st.markdown("---")
+
+    # Section 2: Aksi lanjut
     st.markdown("""
-    ### 🔎 Apa yang bisa kamu lakukan?
-    - Cari bahan kimia berdasarkan **namanya**
-    - Lihat **piktogram**, **risiko**, **penanganan**, dan **APD**
-    - Cocok untuk edukasi siswa, mahasiswa, dan teknisi lab
+    <div style='text-align:center'>
+        <h3 style='color:#007ACC;'>Sudah siap untuk simulasi?</h3>
+        <p>Klik menu <b>🔍 Simulasi Bahan Kimia</b> di sebelah kiri untuk memulai</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    > Klik menu **"Simulasi Bahan Kimia"** di sebelah kiri untuk mulai
-    """)
+    st.markdown("")
 
-# ========================
-# 🔍 HALAMAN 2: SIMULASI
-# ========================
+    # Section 3: Footer
+    st.markdown("""
+    <hr>
+    <div style='text-align:center; font-size:14px; color:gray;'>
+        Aplikasi ini dibuat untuk edukasi keselamatan kerja laboratorium.<br>
+        Didukung oleh ❤️ Streamlit.io & Komitmen K3
+    </div>
+    """, unsafe_allow_html=True)
+
+# =========================
+# 🔍 HALAMAN SIMULASI
+# =========================
 elif page == "🔍 Simulasi Bahan Kimia":
     st.header("🔍 Cari Bahan Kimia")
 
-    # Input nama bahan kimia
     keyword = st.text_input("Masukkan nama bahan kimia (contoh: asam sulfat)").lower()
 
     if keyword:
