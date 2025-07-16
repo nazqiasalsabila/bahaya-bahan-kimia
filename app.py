@@ -1,17 +1,42 @@
 import streamlit as st
 
 # Konfigurasi halaman
-st.set_page_config(page_title="Simulasi Bahaya Bahan Kimia", page_icon="🧯", layout="centered")
+st.set_page_config(page_title="Simulasi Bahaya Bahan Kimia", page_icon="🛯", layout="centered")
 
-# Data kimia (minimal untuk simulasi, bisa ditambah nanti)
-data_kimia = {
-    "asam sulfat": {"piktogram": ["🧪 Korosif"], "risiko": ["Korosif", "Iritasi"], "penanganan": "Tambahkan ke air, jangan sebaliknya.", "apd": ["Sarung tangan", "Kacamata", "Masker"]},
-    "aseton": {"piktogram": ["🔥 Mudah Terbakar"], "risiko": ["Iritasi", "Anestetik"], "penanganan": "Jauhkan dari api.", "apd": ["Masker uap", "Sarung tangan"]},
-    # Tambahkan lebih banyak bahan di sini...
-}
+# Dataset 100 bahan kimia buatan
+import random
+
+piktogram_list = ["🧪 Korosif", "🔥 Mudah Terbakar", "☠️ Toksik", "⚠️ Iritasi", "💨 Gas"]
+risiko_list = ["Korosif", "Iritasi", "Toksik", "Karsinogenik", "Mudah menguap", "Bahaya kulit", "Reaktif", "Oksidator"]
+penanganan_list = [
+    "Gunakan APD lengkap.",
+    "Jauhkan dari sumber panas.",
+    "Simpan dalam wadah tertutup.",
+    "Gunakan di tempat berventilasi.",
+    "Gunakan lemari asam.",
+    "Tambahkan ke air, jangan sebaliknya."
+]
+apd_list = [
+    ["Sarung tangan", "Kacamata", "Masker"],
+    ["Masker gas", "Jas lab"],
+    ["Sarung tangan nitril", "Kacamata safety"],
+    ["Masker uap organik", "Pelindung wajah"],
+    ["Kacamata", "Jas lab", "Sarung tangan"]
+]
+
+# Generate 100 bahan kimia
+data_kimia = {}
+for i in range(1, 101):
+    nama = f"bahan kimia {i}"
+    data_kimia[nama] = {
+        "piktogram": random.sample(piktogram_list, k=random.randint(1, 2)),
+        "risiko": random.sample(risiko_list, k=random.randint(2, 4)),
+        "penanganan": random.choice(penanganan_list),
+        "apd": random.choice(apd_list)
+    }
 
 # Navigasi via sidebar
-page = st.sidebar.radio("📚 Navigasi Aplikasi", ["🏠 Halaman Utama", "🔍 Simulasi Bahan Kimia"])
+page = st.sidebar.radio("📓 Navigasi Aplikasi", ["🏠 Halaman Utama", "🔍 Simulasi Bahan Kimia"])
 
 # =========================
 # 🏠 HALAMAN AWAL MODERN
@@ -24,19 +49,17 @@ if page == "🏠 Halaman Utama":
         </div>
     """, unsafe_allow_html=True)
 
-    # Section 1: Highlight
-    st.markdown("### 🎯 Manfaat Aplikasi Ini")
+    st.markdown("### 🌟 Manfaat Aplikasi Ini")
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.success("🔎 **Pencarian Bebas**\n\nCari bahan kimia dengan nama tanpa harus pilih.")
+        st.success("\U0001f50e Pencarian Bebas\n\nCari bahan kimia dengan nama tanpa harus pilih.")
     with col2:
-        st.info("🧪 **Tampilan Edukatif**\n\nTampilkan piktogram, risiko, penanganan, dan APD.")
+        st.info("🧪 Tampilan Edukatif\n\nTampilkan piktogram, risiko, penanganan, dan APD.")
     with col3:
-        st.warning("👩‍🔬 **Edukasi K3**\n\nCocok untuk siswa, mahasiswa, dan teknisi laboratorium.")
+        st.warning("👩‍💻 Edukasi K3\n\nCocok untuk siswa, mahasiswa, dan teknisi laboratorium.")
 
     st.markdown("---")
 
-    # Section 2: Aksi lanjut
     st.markdown("""
     <div style='text-align:center'>
         <h3 style='color:#007ACC;'>Sudah siap untuk simulasi?</h3>
@@ -44,9 +67,6 @@ if page == "🏠 Halaman Utama":
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("")
-
-    # Section 3: Footer
     st.markdown("""
     <hr>
     <div style='text-align:center; font-size:14px; color:gray;'>
@@ -61,13 +81,13 @@ if page == "🏠 Halaman Utama":
 elif page == "🔍 Simulasi Bahan Kimia":
     st.header("🔍 Cari Bahan Kimia")
 
-    keyword = st.text_input("Masukkan nama bahan kimia (contoh: asam sulfat)").lower()
+    keyword = st.text_input("Masukkan nama bahan kimia (misal: bahan kimia 25)").lower()
 
     if keyword:
         if keyword in data_kimia:
             info = data_kimia[keyword]
 
-            st.subheader("📛 Piktogram Bahaya")
+            st.subheader("💼 Piktogram Bahaya")
             st.markdown(" ".join(info["piktogram"]))
 
             st.subheader("⚠️ Risiko")
